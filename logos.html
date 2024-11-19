@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Program Logos - iOS Style</title>
+    <style>
+        /* General Styles */
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        h1 {
+            margin-bottom: 100px;
+        }
+
+        /* Styling for the dock container */
+        .dock-container {
+            position: relative;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: flex;
+            align-items: flex-end;
+            gap: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            transition: background-color 0.3s ease;
+        }
+
+        /* Styling for each logo item */
+        .dock-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.2s ease-out;
+        }
+
+        .dock-item img {
+            width: 60px;
+            height: 60px;
+            transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1); /* Smooth easing */
+        }
+
+        /* Main hover effect */
+        .dock-item:hover {
+            transform: translateY(-20px) scale(1.5); /* Lift hovered item */
+        }
+
+        .dock-item:hover ~ .dock-item img {
+            transform: scale(1.1); /* Scale slightly for right-side adjacent items */
+        }
+
+        .dock-container:hover .dock-item:not(:hover) img {
+            transform: scale(0.9); /* Scale down non-hovered items */
+        }
+
+        /* Tooltip styling */
+        .tooltip {
+            position: absolute;
+            bottom: 60px;
+            background-color: white;
+            color: black;
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(0);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        /* Tooltip visibility on hover */
+        .dock-item:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(-10px);
+        }
+
+        /* ChatGPT-specific light/dark mode behavior */
+        .chatgpt-light {
+            filter: brightness(0); /* Make logo suitable for light mode */
+        }
+
+        .chatgpt-dark {
+            filter: brightness(1); /* Reset for dark mode */
+        }
+
+        /* Light Mode Styles */
+        body.light-mode {
+            background-color: white;
+            color: black;
+        }
+
+        body.light-mode .dock-container {
+            background-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-mode .tooltip {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<body class="">
+
+
+    <div class="dock-container">
+        <div class="dock-item">
+            <img src="Logos programas/autocad.png" alt="Autocad">
+            <div class="tooltip">Autocad</div>
+        </div>
+        <div class="dock-item">
+            <img src="Logos programas/revit.png" alt="Revit">
+            <div class="tooltip">Revit</div>
+        </div>
+        <div class="dock-item">
+            <img src="Logos programas/photoshop.png" alt="Photoshop">
+            <div class="tooltip">Photoshop</div>
+        </div>
+        <div class="dock-item">
+            <img src="Logos programas/indesign.png" alt="Indesign">
+            <div class="tooltip">Indesign</div>
+        </div>
+        <div class="dock-item">
+            <img src="Logos programas/enscape.png" alt="Enscape">
+            <div class="tooltip">Enscape</div>
+        </div>
+        <div class="dock-item">
+            <img src="Logos programas/lumion.png" alt="Lumion">
+            <div class="tooltip">Lumion</div>
+        </div>
+        <div class="dock-item">
+            <img src="Logos programas/chatgpt.png" alt="ChatGPT" id="chatgpt-logo" class="chatgpt-dark">
+            <div class="tooltip">ChatGPT</div>
+        </div>
+    </div>
+
+    <!-- JavaScript to Handle ChatGPT Light/Dark Mode -->
+    <script>
+        const chatGPTLogo = document.getElementById('chatgpt-logo');
+
+        // Automatically apply the light mode class if detected in the parent document
+        if (window.parent.document.body.classList.contains('light-mode')) {
+            document.body.classList.add('light-mode');
+            chatGPTLogo.classList.remove('chatgpt-dark');
+            chatGPTLogo.classList.add('chatgpt-light');
+        }
+
+        // Listen for changes in the parent's class
+        const observer = new MutationObserver(() => {
+            if (window.parent.document.body.classList.contains('light-mode')) {
+                document.body.classList.add('light-mode');
+                chatGPTLogo.classList.remove('chatgpt-dark');
+                chatGPTLogo.classList.add('chatgpt-light');
+            } else {
+                document.body.classList.remove('light-mode');
+                chatGPTLogo.classList.remove('chatgpt-light');
+                chatGPTLogo.classList.add('chatgpt-dark');
+            }
+        });
+
+        observer.observe(window.parent.document.body, { attributes: true, attributeFilter: ['class'] });
+    </script>
+</body>
+</html>

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal Portfolio</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@400;600&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* General Styles */
+        body {
+            background-color: white; /* Default to light mode */
+            color: black;
+            font-family: 'Open Sans', sans-serif; /* Default font for body */
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition for background and text color */
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Header */
+        header {
+            padding: 20px;
+            position: relative;
+            font-family: 'Playfair Display', serif; /* Elegant font for header */
+            transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition for header styles */
+        }
+
+        /* Dark/Light Mode Toggle */
+        .toggle-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+
+        .toggle-switch input {
+            display: none;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: black; /* Default toggle background for light mode */
+            border-radius: 30px;
+            transition: background-color 0.4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.4s;
+        }
+
+        input:checked + .slider {
+            background-color: white; /* Toggle background for dark mode */
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(30px);
+            background-color: black; /* Slider circle for dark mode */
+        }
+
+        /* Navigation */
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            font-family: 'Montserrat', sans-serif; /* Modern font for navigation */
+            transition: color 0.5s ease; /* Smooth transition for text color */
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: inherit;
+            text-decoration: none;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            transition: color 0.5s ease; /* Smooth transition for link color */
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Sections */
+        section {
+            padding: 40px 20px;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif; /* Elegant font for section headers */
+            font-size: 2em;
+        }
+
+        p {
+            font-family: 'Open Sans', sans-serif; /* Clean font for paragraphs */
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        /* Resume Download Button */
+        .resume-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff; /* Light mode default */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            margin: 20px 0;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif; /* Modern font for buttons */
+            transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition for button styles */
+        }
+
+        .resume-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer */
+        footer {
+            padding: 20px;
+            font-size: 0.9em;
+            font-family: 'Open Sans', sans-serif; /* Clean font for footer */
+            transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition for footer styles */
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: black;
+            color: white;
+        }
+
+        body.dark-mode a {
+            color: white;
+        }
+
+        body.dark-mode .resume-button {
+            background-color: #ff4500;
+        }
+
+        body.dark-mode .resume-button:hover {
+            background-color: #ff6347;
+        }
+
+/* About Me Section */
+#about-me {
+    padding: 40px 20px;
+    background-color: #f9f9f9; /* Light background for the entire section */
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    max-width: 1200px;
+    margin: 40px auto; /* Center and add spacing around the section */
+}
+
+#about-me h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    font-family: 'Playfair Display', serif;
+    color: #333; /* Contrasting title color */
+}
+
+/* Wrapper to maintain equal column heights */
+.about-me-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.about-me-container {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch; /* Ensure equal heights */
+    gap: 20px;
+    justify-content: space-between;
+}
+
+/* About Me Text Styling */
+.about-me-text,
+.about-me-education,
+.about-me-image {
+    flex: 1; /* Equal space for all columns */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff; /* Separate background for each column */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for individual columns */
+}
+
+/* Text inside the introductory paragraph */
+.about-me-text p {
+    text-align: justify;
+    font-size: 1em;
+    line-height: 1.8;
+    color: #555;
+}
+
+/* Education Column */
+.about-me-education {
+    text-align: left; /* Align education text to the left */
+    font-size: 1em;
+    line-height: 1.6;
+}
+
+.about-me-education h3 {
+    margin-bottom: 15px;
+    font-size: 1.3em;
+    color: #333;
+}
+
+.about-me-education ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.about-me-education li {
+    margin-bottom: 10px;
+}
+
+.about-me-education li strong {
+    color: #000;
+}
+
+/* About Me Image Styling */
+.about-me-image img {
+    width: 100%;
+    height: 100%; /* Ensure image occupies full height */
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .about-me-container {
+        flex-direction: column; /* Stack columns vertically */
+    }
+}
+
+
+#sidebar {
+    position: fixed; /* Fix the sidebar in place */
+    top: 50%; /* Position halfway down the viewport */
+    left: 10px; /* Adjust the distance from the left */
+    transform: translateY(-50%); /* Center vertically */
+    padding: 10px; /* Reduce padding for a minimalistic look */
+    z-index: 1000; /* Ensure it stays above content */
+    width: 150px; /* Reduce width to avoid covering content */
+    background: transparent; /* Make background transparent */
+    color: black; /* Use black text for visibility */
+    text-align: left; /* Align text to the left */
+    opacity: 0; /* Start as invisible */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth appearance */
+}
+
+#sidebar.visible {
+    opacity: 1; /* Make visible */
+    transform: translateY(-50%) translateX(0); /* Smooth transition in */
+}
+
+#sidebar ul {
+    list-style: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+}
+
+#sidebar ul li {
+    margin-bottom: 10px; /* Add spacing between items */
+}
+
+#sidebar ul li a {
+    color: black; /* Black text for links */
+    text-decoration: none; /* Remove underline */
+    font-size: 1em; /* Adjust font size */
+    transition: color 0.3s ease; /* Smooth hover effect */
+}
+
+#sidebar ul li a:hover {
+    color: #007bff; /* Change color on hover */
+}
+
+#portfolio {
+    margin-bottom: 60px; /* Adjust the value as needed */
+}
+
+
+/* Experience Section */
+#experience {
+    padding: 40px 20px;
+    background-color: #f9f9f9; /* Light background for the section */
+    border-radius: 10px; /* Rounded corners */
+    max-width: 1200px;
+    margin: 40px auto; /* Center the section */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+}
+
+#experience h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    font-family: 'Playfair Display', serif;
+    color: #333;
+    margin-bottom: 60px; /* Add extra space below the Experience section */
+}
+
+
+
+/* Flexbox container for columns */
+.experience-container {
+    display: flex;
+    gap: 20px; /* Spacing between columns */
+    justify-content: space-between; /* Space out the columns */
+    align-items: flex-start; /* Align content to the top */
+}
+
+/* Individual columns */
+.job-column {
+    flex: 1; /* Equal space for both columns */
+    background-color: white; /* White background for each column */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    text-align: justify; /* Align text to the left */
+}
+
+.job-column h3 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    color: #000000; /* Distinct color for job titles */
+}
+
+.job-column p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #555; /* Softer text color */
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+    .experience-container {
+        flex-direction: column; /* Stack columns vertically */
+    }
+
+    .job-column {
+        width: 100%; /* Full width for stacked columns */
+    }
+}
+
+
+
+
+
+        
+    </style>
+</head>
+<body class="light-mode">
+    <!-- Header -->
+    <header>
+        <h1>My Personal Portfolio</h1>
+        <div class="toggle-container">
+            <label class="toggle-switch">
+                <input type="checkbox" id="theme-toggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#about-me">About Me</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#side-projects">Side Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio">
+        <h2>Portfolio</h2>
+        <p>Here you can showcase your best work and projects.</p>
+        <iframe src="portfolio.html" style="width: 100%; height: 500px; border: none; transition: background-color 0.5s ease;"></iframe>
+    </section>
+
+
+
+<section id="about-me">
+    <h2>About Me</h2> <!-- Title outside the container -->
+    <div class="about-me-wrapper">
+        <div class="about-me-container">
+            <!-- First Column: Introductory Paragraph -->
+            <div class="about-me-text">
+                <p>
+                    I am an Argentine architect specializing in BIM, maximizing business efficiency in projects. 
+                    With expertise in BIM implementation, process optimization, and seamless collaboration, 
+                    I excel in identifying business opportunities and creating cost-effective designs. 
+                    My focus on innovation and trends ensures competitive results, driven by a resilient attitude 
+                    and a constant desire to learn and evolve.
+                </p>
+            </div>
+    
+            <!-- Second Column: Education History -->
+            <div class="about-me-education">
+                <h3>Education</h3>
+                <ul>
+                    <li><strong>Colegio Cardenal Pironio</strong>, MARIN - Tigre, Buenos Aires, Argentina (2002-2014)</li>
+                    <li><strong>Universidad de Belgrano</strong>, Buenos Aires, Argentina (2016-2021) Degree: Architect</li>
+                    <li><strong>Master in Architecture, Design, and Innovation</strong>, MArch, Spain (2022 - 2023)</li>
+                    <li><strong>Workshop: Visualization in Architecture</strong>, Agraph (2023)</li>
+                </ul>
+            </div>
+    
+            <!-- Third Column: Profile Picture -->
+            <div class="about-me-image">
+                <img src="Logos programas/billy.jpg" alt="About Me Image">
+            </div>
+        </div>
+    </div>
+</section>
+
+      
+
+    <h2>Skills</h2>
+
+    <iframe src="logos.html" height="300px" style="width: 100%; border: none; transition: background-color 0.5s ease;"></iframe>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <h2>Experience</h2>
+        <div class="experience-container">
+            <!-- First Job -->
+            <div class="job-column">
+                <h3>BIM Coordinator at RZR</h3>
+                <p>
+                    Mi  rol en este estudio es el de cranear todo el diseño del proyecto previo a iniciar su modelado, definiendo todos los parametros, la ruta de los archivos y ordenar los mismos de la mejor manera posible para luego poder entregarselo al cliente.
+    
+                    Por otro lado participo en el modelado y la redaccion de proyectos de principio a fin.Creación de parametros necesarios, filtros, familias, view templates, sheets, detalles, exportaciónes y planillas de computo.
+    
+                    Tambien utilizo en mi workflow motores de renderizado como puede ser Enscape y Lumion para ir viendo en un modelado 3d como va quedando el proyecto, realizar detalles cconstructivos y  ademas utilizo Navisworks para encontrar posibles errores e interferencias (ademas de visualizar el proyecto).
+                </p>
+            </div>
+    
+            <!-- Second Job -->
+            <div class="job-column">
+                <h3>BIM Specialist at Cubicup</h3>
+                <p>
+                    Cubicup es una startup que se dedica a la reforma de viviendas en Valencia, Madrid y Barcelona, que aplica la tecnología BIM para ejecutar cada etapa de sus proyectos.
+    
+                    Mi participación en el área de diseño abarca el desarrollo de la planimetría, generada con metodología BIM. Cada elemento es modelado en un sistema parametrizado que permite una integración completa entre diseño y construcción. De esa manera, es facilitada la coordinación entre disciplinas, la interpretación por parte del cliente y el desarrollo de la obra, lo que reduce posibles errores y costos.
+    
+                    Como Budgeter, participo en la elaboración de cotizaciones detalladas para reformas parciales e integrales de viviendas, también utilizando Revit para contabilizar de manera precisa cada partida del presupuesto.
+    
+                </p>
+            </div>
+        </div>
+    
+      
+    </section>
+
+ 
+
+
+    <!-- Resume Section -->
+    <section id="resume">
+
+        <p>
+            <a href="curriculum/CURRICULUM.pdf" target="_blank" class="resume-button">Download My Resume</a>
+        </p>
+    </section>
+
+     <!-- Side Projects Section -->
+     <section id="side-projects">
+        <h2>Side Projects</h2>
+        <p>Learn more about the projects you've worked on outside of your main job.</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>Email: guillermozwanck@gmail.com <br>
+            Telefono: +34 653 629 648</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Billy Zwanck</p>
+    </footer>
+
+    <!-- JavaScript for Dark/Light Mode -->
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+
+        // Start in light mode by default
+        themeToggle.checked = false;
+
+        themeToggle.addEventListener('change', () => {
+            document.body.classList.toggle('dark-mode', themeToggle.checked);
+            document.body.classList.toggle('light-mode', !themeToggle.checked);
+        });
+    </script>
+
+<div id="sidebar">
+    <ul>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#about-me">About Me</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#side-projects">Side Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</div>
+
+
+<script>
+    window.addEventListener("scroll", function () {
+        const sidebar = document.getElementById("sidebar");
+        const headerHeight = document.querySelector("header").offsetHeight;
+
+        if (window.scrollY > headerHeight) {
+            sidebar.classList.add("visible"); // Add the 'visible' class
+        } else {
+            sidebar.classList.remove("visible"); // Remove the 'visible' class
+        }
+    });
+</script>
+
+
+</body>
+</html>
